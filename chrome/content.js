@@ -3,7 +3,7 @@
 var allowedOrigins;
 
 function _getOrigins(cb){
-	if (allowedOrigins) return cb(allowedOrigins);
+	if (allowedOrigins) return setTimeout(cb.bind(null, allowedOrigins), 0);
 
 	chrome.storage.local.get('anx-origins', function(data){
 		data = data || {};
@@ -22,7 +22,7 @@ function _allowOrigin(origin){
 }
 
 function _checkOrigin(message, cb){
-	if (/(adnxs.net|adnxs.com|appnexus.com|appnexus.net|devnxs.net|)$/i.test(message.origin)) return cb(true);
+	if (/(adnxs.net|adnxs.com|appnexus.com|appnexus.net|devnxs.net|)$/i.test(message.origin)) return setTimeout(cb.bind(null, true), 0);
 	
 	_getOrigins(function(origins){
 		for (var x=0; x<origins.length; x++){
