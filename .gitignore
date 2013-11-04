@@ -1,4 +1,5 @@
-polyfill/public/mocha/tests.js
+/polyfill/public/mocha/tests.js
+/polyfill/dist/*
 lib-cov
 *.seed
 *.log
@@ -14,5 +15,3 @@ results
 
 npm-debug.log
 node_modules
-polyfill/dist/*
-public/mocha/test.js
