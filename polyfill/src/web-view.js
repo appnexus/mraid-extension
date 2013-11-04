@@ -48,6 +48,22 @@ var WebView = function(options){
 			$el = $('body');
 		}
 
+		if (!inIframe && $el.is('body')){
+			// now we are getting crazy.
+			// if we are the only thing on page then empty the page and re-request the 
+			// creative from within an iframe so that we have a container that we can size.
+
+			$el.css('padding', '0px');
+			$el.empty();
+
+			var $iframe = $('<iframe />')
+				.css('border', 'none')
+				.attr('src', window.location.toString());
+	
+			$el.append($iframe);
+			return null;
+		}
+
 		return $el;
 	}
 
@@ -156,14 +172,12 @@ var WebView = function(options){
 		});
 	};
 	
-	this.setSize = function(width, height, overrideSize){
+	this.setSize = function(width, height){
 		width = width.toString().match(/^(\d+)/)[1] * 1;
 		height = height.toString().match(/^(\d+)/)[1] * 1;
 
-		if (!overrideSize){
-			width = Math.min(width, screenSize.width);
-			height = Math.min(height, screenSize.height);
-		}
+		width = Math.min(width, screenSize.width);
+		height = Math.min(height, screenSize.height);
 	
 		if (inIframe){
 			// the browser extensions will be listening for this message
@@ -190,6 +204,8 @@ var WebView = function(options){
 		}
 
 		$webView = findWebView();
+		if (!$webView) return;
+
 		$webView.addClass('anx-mraid-webview');
 		
 		$close = buildCloseButton();
@@ -206,6 +222,10 @@ var WebView = function(options){
 			width: $webView.width(),
 			height: $webView.height()
 		};
+
+		if (inIframe){
+			this.setSize(initialSize.width, initialSize.height);
+		}
 
 		self.emit('ready'); 
 	};

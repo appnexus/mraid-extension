@@ -29,4 +29,25 @@ describe('#resize()', function(){
 
 		util.expectAdSize(150, 200);
 	});
+
+
+	describe('resizing smaller', function(){
+		beforeEach(function(done){
+			util.loadAd({
+				width: 320,
+				height: 480
+			}, done);
+		});
+
+		it('should get smaller', function(){
+			mraid.setResizeProperties({
+				width:320,
+				height:50
+			});
+			
+			mraid.resize();
+			util.expectAdSize(320, 50);
+		});
+	});
+
 });
