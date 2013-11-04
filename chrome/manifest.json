@@ -5,10 +5,8 @@
 	"version": "0.1",
 	"icons": { "128": "icon128.png" },
 	"permissions": [
-		"notifications",
-		"webRequest",
-		"debugger",
 		"storage",
+		"webRequest",
 		"webRequestBlocking",
 		"<all_urls>"
 	],
