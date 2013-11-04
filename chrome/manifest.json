@@ -1,0 +1,27 @@
+{
+	"manifest_version": 2,
+	"name": "AppNexus MRAID Polyfill",
+	"description": "View mobile ads on the desktop.",
+	"version": "0.1",
+	"permissions": [
+		"notifications",
+		"webRequest",
+		"debugger",
+		"storage",
+		"webRequestBlocking",
+		"<all_urls>"
+	],
+	"page_action": {
+		"default_icon": "icon19.png",
+		"default_title": "AppNexus Browser MRAID"
+	},
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": true
+	},
+	"content_scripts": [{
+		"matches": ["<all_urls>"],
+		"allframes": true,
+		"js": ["content.js"]
+	}]
+}
