@@ -113,7 +113,7 @@ function Mraid(options){
 			feature.toLowerCase() in defaultSupports;
 	};
 
-	this.getVersion = function(){ return '2.0'; };
+	this.getVersion = function(){ return 'appnexus'; };
 	this.getState = function(){ return stateManager.get(); };
 	this.isViewable = function(){ return true; };
 
