@@ -44,16 +44,14 @@ var WebView = function(options){
 	function findWebView(){
 		var $el;
 		$el = $mraidTag.parent();
-		if ($el.length && /head/i.test($el[0].tagName)){
+		if ($el.length && $el.is('head')){
 			$el = $('body');
 		}
 
 		if (!inIframe && $el.is('body')){
-			// now we are getting crazy.
 			// if we are the only thing on page then empty the page and re-request the 
 			// creative from within an iframe so that we have a container that we can size.
 
-			$el.css('padding', '0px');
 			$el.empty();
 
 			var $iframe = $('<iframe />')
@@ -224,10 +222,10 @@ var WebView = function(options){
 		};
 
 		if (inIframe){
-			this.setSize(initialSize.width, initialSize.height);
+			self.setSize(initialSize.width, initialSize.height);
 		}
 
-		self.emit('ready'); 
+		self.emit('ready');
 	};
 };
 

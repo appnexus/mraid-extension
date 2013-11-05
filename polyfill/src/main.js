@@ -13,7 +13,7 @@ if (!window.mocha){
 	if (window.document.readyState === 'complete'){
 		window.mraid.triggerReady();
 	} else {
-		$(function(){
+		$(window).load(function(){
 			window.mraid.triggerReady();
 		});
 	}

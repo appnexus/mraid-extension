@@ -1,4 +1,10 @@
 @import "src/mixins.scss";
+
+body.anx-mraid-webview{
+	padding:0;
+	margin:0;
+}
+
 .anx-mraid-webview{
 	overflow:hidden;
 	position: relative;
