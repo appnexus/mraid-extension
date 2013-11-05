@@ -61,6 +61,7 @@ function Mraid(options){
 			case 'expanded':
 			case 'default':
 			case 'resized':
+				webView.showClose();
 				webView.setSize(rp.width || 100, rp.height || 100);
 				stateManager.set('resized');
 			break;
