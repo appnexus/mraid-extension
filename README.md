@@ -6,5 +6,5 @@ Enable viewing of [MRAID](http://www.iab.net/mraid) creatives in a desktop brows
 
 Installation
 ============
-The extension is available for download from the chrome store [here]().
+The extension is available for download from the chrome store [here](https://chrome.google.com/webstore/detail/appnexus-mraid-viewer/kljmljefjfkglealiaheaapimodndfno).
 
