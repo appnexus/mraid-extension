@@ -4,8 +4,8 @@ var Mraid = require('./mraid'),
 window.mraid = new Mraid({
 	placementType: 'inline',
 	screen: {
-		width: 320,
-		height: 480
+		width: 768,
+		height: 1024
 	}
 });
 
