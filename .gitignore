@@ -1,5 +1,5 @@
-/polyfill/public/mocha/tests.js
-/polyfill/dist/*
+/public/mocha/tests.js
+/dist/*
 lib-cov
 *.seed
 *.log
