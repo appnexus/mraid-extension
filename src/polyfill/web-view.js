@@ -1,9 +1,10 @@
 var videoJs = require('videojs'),
 	util = require('util'),
+	url = require('url'),
 	$ = require('jquery-browserify'),
 	EventEmitter = require('events').EventEmitter;
 
-var inIframe = window !== window.top;
+var inIframe = window !== window.top ;
 
 // todo: handle this like a grownup
 try {
@@ -15,6 +16,15 @@ var WebView = function(options){
 	EventEmitter.call(this);
 
 	var self = this,
+		STANDARD_SIZES = {
+			'480x80': true,
+			'300x50': true,
+			'320x50': true,
+			'320x250': true,
+			'728x90': true,
+			'300x480': true
+		},
+		IFRAME_MARKER_NAME = 'anx-mraid-marker',
 		$mraidTag,
 		$webView,
 		$close,
@@ -34,11 +44,15 @@ var WebView = function(options){
 			.append('<span>X</span>')
 			.hide();
 
-		if (!inIframe){
-			$close.addClass('anx-mraid-close-iframe');
-		}
-
 		return $close;
+	}
+
+	function getCurrentUrlWithIframeParameter(){
+		var myUrl = url.parse(window.location.toString(), true);
+		myUrl.query[IFRAME_MARKER_NAME] = 1;
+		delete myUrl.search; // make sure the query object is used during format call.
+
+		return url.format(myUrl);
 	}
 
 	function findWebView(){
@@ -49,14 +63,15 @@ var WebView = function(options){
 		}
 
 		if (!inIframe && $el.is('body')){
-			// if we are the only thing on page then empty the page and re-request the 
+			// if we are the only thing on page then hide everything and re-request the 
 			// creative from within an iframe so that we have a container that we can size.
-
-			$el.empty();
+			$el.children().hide();
 
 			var $iframe = $('<iframe />')
 				.css('border', 'none')
-				.attr('src', window.location.toString());
+				.css('width', '100%')
+				.css('height', '100%')
+				.attr('src', getCurrentUrlWithIframeParameter()); // this is necessary because some browsers block an iframe to the same url.
 	
 			$el.append($iframe);
 			return null;
@@ -65,16 +80,58 @@ var WebView = function(options){
 		return $el;
 	}
 
+	function isStandardSize(size){
+		return size && (size.width + 'x' + size.height) in STANDARD_SIZES;
+	}
+
+	function getCreativeSize(){
+		// assume the container is set to the right size.
+		var size = {
+				width: $webView.width(),
+				height: $webView.height()
+			};
+
+		if (isStandardSize(size)) return size;
+
+		var sizeFromUrl = sniffCreativeSizeFromUrl();
+		if (isStandardSize(sizeFromUrl)) return sizeFromUrl;
+
+		return size;
+	}
+
+	function sniffCreativeSizeFromUrl(){
+		var urlSizeRegExStr = Object.getOwnPropertyNames(STANDARD_SIZES)
+				.join('|')
+				.replace(/x/g, '[x\\/]'),
+			urlSizeRegEx = new RegExp(urlSizeRegExStr, 'i'),
+			sizeFromUrl = (window.location.search || '').match(urlSizeRegEx),
+			dimensions;
+
+		if (sizeFromUrl && sizeFromUrl.length){
+			dimensions = sizeFromUrl[0].split(/[^\d]/);
+			return { width: +dimensions[0], height: +dimensions[1] };
+		}
+		
+		return null;
+	}
+
+	function ensureInitialSizeIsSet(){
+		initialSize = initialSize || getCreativeSize();
+		return initialSize;
+	}
+
 	this.hide = function() { $webView.hide(); };
 	this.show = function() { $webView.show(); };
 	this.showClose = function(){ $close.show(); };
 	this.hideClose = function(){ $close.hide(); };
 
 	this.resetSize = function(){
+		if (!initialSize) return;
+
 		this.setSize(initialSize.width, initialSize.height);
 	};
 
-	this.getInitialSize = function(){ return initialSize; };
+	this.getInitialSize = function() { return ensureInitialSizeIsSet(); };
 	this.getScreenSize = function() { return screenSize; };
 	this.getCurrentPosition = function() {
 		if (!$webView) return {x: 0, y: 0};
@@ -171,6 +228,8 @@ var WebView = function(options){
 	};
 	
 	this.setSize = function(width, height){
+		ensureInitialSizeIsSet();
+
 		width = width.toString().match(/^(\d+)/)[1] * 1;
 		height = height.toString().match(/^(\d+)/)[1] * 1;
 
@@ -216,19 +275,9 @@ var WebView = function(options){
 
 		$webView.append($close);
 
-		initialSize = {
-			width: $webView.width(),
-			height: $webView.height()
-		};
-
-		if (inIframe){
-			self.setSize(initialSize.width, initialSize.height);
-		}
-
 		self.emit('ready');
 	};
 };
 
 util.inherits(WebView, EventEmitter);
-
 module.exports = WebView;

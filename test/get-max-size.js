@@ -5,8 +5,8 @@ describe('#getMaxSize()', function(){
 		var size = window.mraid.getMaxSize();
 
 		expect(size).to.be.ok;
-		expect(size.width).to.be.equal(320);
-		expect(size.height).to.be.equal(480);
+		expect(size.width).to.be.equal(768);
+		expect(size.height).to.be.equal(1024);
 	});
 });
 

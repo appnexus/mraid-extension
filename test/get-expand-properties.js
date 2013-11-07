@@ -5,8 +5,8 @@ describe('#getExpandProperties()', function(){
 		var xp = mraid.getExpandProperties();
 
 		expect(xp).to.be.ok;
-		expect(xp.width).to.be.equal(320);
-		expect(xp.height).to.be.equal(480);
+		expect(xp.width).to.be.equal(768);
+		expect(xp.height).to.be.equal(1024);
 	});
 
 	it('should give you back what you set', function(){

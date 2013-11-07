@@ -1,8 +1,12 @@
 var express = require('express'),
 	http = require('http'),
+	sys = require('sys'),
+	exec = require('child_process').exec,
 	path = require('path') ;
 
-require('./create-bundles');
+exec('./build.sh', function(err, stdout){
+	sys.puts(stdout);
+});
 
 var app = express();
 var port = process.env.PORT || 9000;

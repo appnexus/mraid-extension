@@ -18,8 +18,8 @@ describe('#getCurrentPosition()', function(){
 		expect(pos).to.be.ok;
 		expect(pos.x).to.be.equal(0);
 		expect(pos.y).to.be.equal(0);
-		expect(pos.width).to.be.equal(320);
-		expect(pos.height).to.be.equal(480);
+		expect(pos.width).to.be.equal(768);
+		expect(pos.height).to.be.equal(1024);
 	});
 	it('should match the ad element dimensions', function(){
 		var pos = window.mraid.getCurrentPosition();

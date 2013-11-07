@@ -2,6 +2,15 @@
 var util = require('util'),
 	EventEmitter = require('events').EventEmitter;
 
+var anxOrigins = [
+		'adnxs.net',
+		'adnxs.com',
+		'appnexus.com',
+		'appnexus.net',
+		'devnxs.net'
+	],
+	anOriginRegex = new RegExp(anxOrigins.join('|').replace(/\./, '\\.') + '$', 'i');
+
 function Resizer(){
 	EventEmitter.call(this);
 
@@ -12,19 +21,26 @@ function Resizer(){
 	function _getOrigins(cb){
 		if (allowedOrigins) return setTimeout(cb.bind(null, allowedOrigins), 0);
 
-		self.emit('load-origins', { cb: cb });
+		self.emit('load-origins', { 
+			cb: function(origins){ 
+				allowedOrigins = origins || [];
+				
+				cb(allowedOrigins || []);
+			}
+		});
 	}
 
 	function _allowOrigin(origin){
 		_getOrigins(function(origins){
 			origins.push(origin);
+			allowedOrigins = origins;
 
-			self.emit('save-origins', { origins: origins });
+			self.emit('save-origins', { origins: origins || [] });
 		});
 	}
 
 	function _checkOrigin(message, cb){
-		if (/(adnxs.net|adnxs.com|appnexus.com|appnexus.net|devnxs.net|)$/i.test(message.origin)) return setTimeout(cb.bind(null, true), 0);
+		if (anOriginRegex.test(message.origin)) return setTimeout(cb.bind(null, true), 0);
 		
 		_getOrigins(function(origins){
 			for (var x=0; x<origins.length; x++){
@@ -49,7 +65,7 @@ function Resizer(){
 		if (!iframes) return;
 
 		for (var x=0; x<iframes.length; x++){
-			if (iframes[x].contentWindow !== message.source) continue;	
+			if (iframes[x].contentWindow !== message.source) continue;
 
 			iframe = iframes[x];
 			break;
