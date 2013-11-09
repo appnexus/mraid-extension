@@ -135,16 +135,21 @@ function Mraid(options){
 
 	this.triggerReady = function(){
 		webView.triggerReady();
+		stateManager.set('default');
+		self.emit('ready');
 	};
 
 	function init(){
-		stateManager.on('stateChange', function(data){ self.emit('stateChange', data); });
-		stateManager.on('error', function(data){ self.emit('error', data); });
+		stateManager.on('stateChange', function(data){ 
+			self.emit('stateChange', data); 
+		});
 
-		webView.on('close-click', function(){ self.close(); });
-		webView.on('ready', function(){
-			stateManager.set('default');
-			self.emit('ready');
+		stateManager.on('error', function(data){ 
+			self.emit('error', data);
+		});
+		
+		webView.on('close-click', function(){ 
+			self.close(); 
 		});
 
 		self.on('error', function(){}); // this is so node doesn't throw if no one is listening

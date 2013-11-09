@@ -274,8 +274,6 @@ var WebView = function(options){
 		});
 
 		$webView.append($close);
-
-		self.emit('ready');
 	};
 };
 
