@@ -5,7 +5,7 @@ var observer = require('observer-service'),
 	thisExtension = require('self'),
 	{Cc, Ci} = require('chrome');
 
-var mraidUrl = 'http://localhost:9000/mraid.js';
+var mraidUrl = 'http://cdn.adnxs.com/js/mraid.js';
 
 observer.add('http-on-modify-request', function(subject) {
 	subject.QueryInterface(Ci.nsIHttpChannel);
