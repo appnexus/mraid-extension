@@ -4,7 +4,7 @@ var express = require('express'),
 	exec = require('child_process').exec,
 	path = require('path') ;
 
-exec('./build.sh', function(err, stdout){
+exec('./build.sh -d', function(err, stdout){
 	sys.puts(stdout);
 });
 
