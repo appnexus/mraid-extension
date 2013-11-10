@@ -52,5 +52,10 @@ rm ./dist/firefox/data/content.js
 bundle ./src/extension/firefox/data/content.js ./dist/firefox/data/content.compiled.js
 printf '.'
 
+# no console.logs allowed in the release build
+if [[ -z "$DEBUG" ]]; then
+	sed -E -i '' 's/console\.log\((.*)\);//g' `find ./dist -iname '*.js'`
+fi
+
 printf 'done\n'
 exit 0

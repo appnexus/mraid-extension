@@ -136,7 +136,10 @@ function Mraid(options){
 	this.triggerReady = function(){
 		webView.triggerReady();
 		stateManager.set('default');
+
+		console.log('firing mraid.ready');
 		self.emit('ready');
+		console.log('fired mraid.ready');
 	};
 
 	function init(){
