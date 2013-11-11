@@ -1,7 +1,8 @@
 var Mraid = require('./mraid'),
 	options = require('./options'),
-	$ = require('jquery-browserify');
+	{$} = require('zepto-browserify');
 
+debugger;
 window.mraid = new Mraid({
 	placementType: 'inline',
 	screen: options.getScreenSize()
@@ -11,7 +12,7 @@ if (!window.mocha){
 	if (window.document.readyState === 'complete'){
 		window.mraid.triggerReady();
 	} else {
-		$(window).load(function(){
+		$(function(){
 			window.mraid.triggerReady();
 		});
 	}

@@ -1,4 +1,4 @@
-var $ = require('jquery-browserify');
+var {$} = require('zepto-browserify');
 var expect = require('chai').expect;
 
 function _loadAd(options, done){

@@ -11,10 +11,10 @@
   "dependencies": {
     "express": "~3.4.0",
     "browserify": "~2.34.1",
-    "jquery-browserify": "~1.8.1",
     "sassify2": "0.0.2",
     "cssify2": "0.0.4",
-    "videojs": "0.0.2"
+    "videojs": "0.0.2",
+    "zepto-browserify": "~1.0.0"
   },
   "devDependencies": {
     "mocha": "~1.13.0",

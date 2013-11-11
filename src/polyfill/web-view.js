@@ -1,7 +1,7 @@
 var videoJs = require('videojs'),
 	util = require('util'),
 	url = require('url'),
-	$ = require('jquery-browserify'),
+	{$} = require('zepto-browserify'),
 	EventEmitter = require('events').EventEmitter;
 
 var inIframe = window !== window.top ;
