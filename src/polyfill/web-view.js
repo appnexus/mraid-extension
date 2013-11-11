@@ -2,9 +2,11 @@ var videoJs = require('videojs'),
 	util = require('util'),
 	url = require('url'),
 	$ = require('jquery-browserify'),
-	EventEmitter = require('events').EventEmitter;
+	{EventEmitter} = require('events'),
+	getFrameElement = require('../frame-to-element');
 
-var inIframe = window !== window.top ;
+const inIframe = window !== window.top ;
+
 
 // todo: handle this like a grownup
 try {
@@ -46,6 +48,18 @@ var WebView = function(options){
 			.hide();
 
 		return $close;
+	}
+
+	function canAccessParent(){
+		if (!inIframe) return false;
+
+		try {
+			window.parent.location.toString();
+			return true;
+		}
+		catch(e){
+			return false;
+		}
 	}
 
 	function getCurrentUrlWithIframeParameter(){
@@ -245,13 +259,20 @@ var WebView = function(options){
 		height = Math.min(height, screenSize.height);
 	
 		if (inIframe){
-			// the browser extensions will be listening for this message
-			window.parent.postMessage({
-				name:'mraid-resize',
-				src: window.location.toString(),
-				width: width, 
-				height: height
-			}, '*');
+			if (canAccessParent()){
+				$(getFrameElement(window))
+					.css('width', width + 'px')
+					.css('height', height + 'px');
+			} else {
+				// the browser extensions will be listening for this message
+
+				window.parent.postMessage({
+					name:'mraid-resize',
+					src: window.location.toString(),
+					width: width, 
+					height: height
+				}, '*');
+			}
 		} else {
 			$webView
 				.css('width', width + 'px')

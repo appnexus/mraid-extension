@@ -1,8 +1,9 @@
 /* global confirm:true */
-var util = require('util'),
-	EventEmitter = require('events').EventEmitter;
+const util = require('util'),
+	getFrameElement = require('../frame-to-element'),
+	{EventEmitter} = require('events');
 
-var anxOrigins = [
+const anxOrigins = [
 		'adnxs.net',
 		'adnxs.com',
 		'appnexus.com',
@@ -59,17 +60,7 @@ function Resizer(){
 	}
 
 	function _doResize(message){
-		var iframes = window.document.getElementsByTagName('iframe');
-		var iframe;
-
-		if (!iframes) return;
-
-		for (var x=0; x<iframes.length; x++){
-			if (iframes[x].contentWindow !== message.source) continue;
-
-			iframe = iframes[x];
-			break;
-		}
+		var iframe = getFrameElement(message.source, window);
 
 		if (iframe && iframe.style){
 			iframe.style.width = message.data.width + 'px';
