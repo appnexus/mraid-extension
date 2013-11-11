@@ -34,10 +34,11 @@ var WebView = function(options){
 
 	options = options || {};
 	screenSize = {
-		width: options.width || 300,
-		height: options.height || 500
+		width: options.width || 768,
+		height: options.height || 1024
 	};
 
+	console.log('anx-mraid: screen size ' + screenSize.width + 'x' + screenSize.height);
 	function buildCloseButton(){
 		var $close =  $('<div />')
 			.attr('class', 'anx-mraid-close')
@@ -104,7 +105,8 @@ var WebView = function(options){
 				.join('|')
 				.replace(/x/g, '[x\\/]'),
 			urlSizeRegEx = new RegExp(urlSizeRegExStr, 'i'),
-			sizeFromUrl = (window.location.search || '').match(urlSizeRegEx),
+			search = window.location.search.replace(/\banx-mraid-screen=\d{2,4}x\d{2,4}\b/ig, ''),
+			sizeFromUrl = search.match(urlSizeRegEx),
 			dimensions;
 
 		if (sizeFromUrl && sizeFromUrl.length){
@@ -116,7 +118,11 @@ var WebView = function(options){
 	}
 
 	function ensureInitialSizeIsSet(){
-		initialSize = initialSize || getCreativeSize();
+		if (!initialSize){
+			initialSize = getCreativeSize();
+			console.log('anx-mraid: creative size ' + initialSize.width + 'x' + initialSize.height);
+		}
+
 		return initialSize;
 	}
 
@@ -229,6 +235,8 @@ var WebView = function(options){
 	
 	this.setSize = function(width, height){
 		ensureInitialSizeIsSet();
+
+		console.log('anx-mraid: setting size to ' + width + 'x' + height);
 
 		width = width.toString().match(/^(\d+)/)[1] * 1;
 		height = height.toString().match(/^(\d+)/)[1] * 1;

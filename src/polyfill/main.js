@@ -1,12 +1,10 @@
 var Mraid = require('./mraid'),
+	options = require('./options'),
 	$ = require('jquery-browserify');
 
 window.mraid = new Mraid({
 	placementType: 'inline',
-	screen: {
-		width: 768,
-		height: 1024
-	}
+	screen: options.getScreenSize()
 });
 
 if (!window.mocha){

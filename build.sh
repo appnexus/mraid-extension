@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function bundle {
-	node ./node_modules/browserify/bin/cmd.js -t sassify2 $1 |
+	node ./node_modules/browserify/bin/cmd.js -t sassify2 -t es6ify $1 |
 	( [[ "$DEBUG" ]] && cat || ./node_modules/uglify-js/bin/uglifyjs  ) |
 	cat > $2
 }
