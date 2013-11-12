@@ -40,7 +40,6 @@ var WebView = function(options){
 		height: options.height || 1024
 	};
 
-	console.log('screen size ' + screenSize.width + 'x' + screenSize.height);
 	function buildCloseButton(){
 		var $close =  $('<div />')
 			.attr('class', 'anx-mraid-close')
@@ -82,6 +81,8 @@ var WebView = function(options){
 			// creative from within an iframe so that we have a container that we can size.
 			$el.children().hide();
 
+			console.log('**restarting in iframe**');
+
 			var $iframe = $('<iframe />')
 				.css('border', 'none')
 				.css('width', '100%')
@@ -106,10 +107,16 @@ var WebView = function(options){
 				height: $webView.height()
 			};
 
+		console.log('creative size(html): ' + size.width + 'x' + size.height);
+
 		if (isStandardSize(size)) return size;
 
 		var sizeFromUrl = sniffCreativeSizeFromUrl();
-		if (isStandardSize(sizeFromUrl)) return sizeFromUrl;
+		if (sizeFromUrl) {
+			console.log('creative size(url): ' + sizeFromUrl.width + 'x' + sizeFromUrl.height);
+
+			return sizeFromUrl;
+		}
 
 		return size;
 	}
@@ -134,7 +141,6 @@ var WebView = function(options){
 	function ensureInitialSizeIsSet(){
 		if (!initialSize){
 			initialSize = getCreativeSize();
-			console.log('creative size ' + initialSize.width + 'x' + initialSize.height);
 		}
 
 		return initialSize;
@@ -281,8 +287,6 @@ var WebView = function(options){
 	};
 
 	this.triggerReady = function(){
-		$(window.document.head).prepend($('<style></style>').html(css));
-
 		$mraidTag = $('script[src*="mraid.js"]');
 		if (!$mraidTag || !$mraidTag.length){
 			// no mraid tag, bail!
@@ -290,8 +294,11 @@ var WebView = function(options){
 		}
 
 		$webView = findWebView();
-		if (!$webView) return;
+		if (!$webView) return false;
 
+		console.log('screen size ' + screenSize.width + 'x' + screenSize.height);
+
+		$('head').prepend($('<style></style>').html(css));
 		$webView.addClass('anx-mraid-webview');
 		
 		$close = buildCloseButton();

@@ -134,16 +134,18 @@ function Mraid(options){
 	};
 
 	this.triggerReady = function(){
-		webView.triggerReady();
+		if (webView.triggerReady() === false) return;
+
 		stateManager.set('default');
 
-		console.log('before mraid.ready');
+
+		console.log('ready!');
 		self.emit('ready');
-		console.log('after mraid.ready');
 	};
 
 	function init(){
 		stateManager.on('stateChange', function(data){ 
+			console.log('state change: ' + data);
 			self.emit('stateChange', data); 
 		});
 
