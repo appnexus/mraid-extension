@@ -101,49 +101,44 @@ var WebView = function(options){
 	}
 
 	function getCreativeSize(){
-		// assume the container is set to the right size.
-		var size = {
+		let size = {
 				width: $webView.width(),
-				height: $webView.height()
+				height: $webView.height(),
+				from: 'html'
 			};
-
-		console.log('creative size(html): ' + size.width + 'x' + size.height);
 
 		if (isStandardSize(size)) return size;
 
-		var sizeFromUrl = sniffCreativeSizeFromUrl();
-		if (sizeFromUrl) {
-			console.log('creative size(url): ' + sizeFromUrl.width + 'x' + sizeFromUrl.height);
+		let sizeFromUrl = sniffCreativeSizeFromUrl();
 
-			return sizeFromUrl;
-		}
-
-		return size;
+		return sizeFromUrl || size;
 	}
 
 	function sniffCreativeSizeFromUrl(){
-		var urlSizeRegExStr = Object.getOwnPropertyNames(STANDARD_SIZES)
-				.join('|')
-				.replace(/x/g, '[x\\/]'),
-			urlSizeRegEx = new RegExp(urlSizeRegExStr, 'i'),
+		var urlSizeRegEx = /\b\d{2,4}[x\/]\d{2,4}/i,
 			search = window.location.search.replace(/\banx-mraid-screen=\d{2,4}x\d{2,4}\b/ig, ''),
 			sizeFromUrl = search.match(urlSizeRegEx),
 			dimensions;
 
 		if (sizeFromUrl && sizeFromUrl.length){
 			dimensions = sizeFromUrl[0].split(/[^\d]/);
-			return { width: +dimensions[0], height: +dimensions[1] };
+			return { width: +dimensions[0], height: +dimensions[1], from: 'url' };
 		}
 		
 		return null;
 	}
 
-	function ensureInitialSizeIsSet(){
+	function ensureInitialSizeIsSet(size){
 		if (!initialSize){
-			initialSize = getCreativeSize();
+			initialSize = size || getCreativeSize();
 		}
 
 		return initialSize;
+	}
+
+	function isInSelfMadeFrame(){
+		let query = url.parse(window.location.toString(), true).query;
+		return query && query[IFRAME_MARKER_NAME];
 	}
 
 	this.hide = function() { $webView.hide(); };
@@ -310,6 +305,16 @@ var WebView = function(options){
 		});
 
 		$webView.append($close);
+
+		let size = getCreativeSize();
+		if (isInSelfMadeFrame()){
+			console.log('initializing size: ' + size.width + 'x' + size.height + ' (' + size.from + ')');
+			ensureInitialSizeIsSet(size);
+			this.setSize(size.width, size.height);
+		} else if (size) {
+			console.log('ignoring initial size: ' + size.width + 'x' + size.height + ' (' + size.from + ')');
+		}
+
 	};
 };
 

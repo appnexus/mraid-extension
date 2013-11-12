@@ -5,7 +5,7 @@ module.exports = function(iframe, w){
 
 	if (!iframes) return;
 
-	for (var x=0; x<iframes.length; x++){
+	for (let x=0; x<iframes.length; x++){
 		if (iframes[x].contentWindow !== iframe) continue;
 
 		return iframes[x];
