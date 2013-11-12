@@ -81,7 +81,7 @@ var WebView = function(options){
 			// creative from within an iframe so that we have a container that we can size.
 			$el.children().hide();
 
-			console.log('**restarting in iframe**');
+			console.log('***restarting in iframe***');
 
 			var $iframe = $('<iframe />')
 				.css('border', 'none')
@@ -110,6 +110,10 @@ var WebView = function(options){
 		if (isStandardSize(size)) return size;
 
 		let sizeFromUrl = sniffCreativeSizeFromUrl();
+
+		if (sizeFromUrl && size.width == sizeFromUrl.width && size.height == sizeFromUrl.height){
+			sizeFromUrl.from = 'html/url';
+		}
 
 		return sizeFromUrl || size;
 	}
