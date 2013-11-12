@@ -90,20 +90,31 @@ function Mraid(options){
 
 	this.getPlacementType = function(){ return placementType; };
 	this.getExpandProperties = function(){ return expandProperties; };
-	this.setExpandProperties = function(p){ expandProperties = p; };
 	this.getResizeProperties = function(){ return resizeProperties; };
-	this.setResizeProperties = function(p){ resizeProperties = p; };
+
+	this.setExpandProperties = function(p){ 
+		expandProperties = p; 
+		console.log('expand properties set: ' + expandProperties.width + 'x' + expandProperties.height);
+	};
+
+	this.setResizeProperties = function(p){ 
+		resizeProperties = p;
+		console.log('resize properties set: ' + resizeProperties.width + 'x' + resizeProperties.height);
+	};
+
 	this.playVideo = function(url){ webView.showVideo(url); };
 	
 	this.storePicture = function(a){ 
 		console.log('mraid.storePicture("'+a+'") ');
 		webView.showMessage('mraid.storePicture(...)'); 
 	};
+
 	this.createCalendarEvent = function(a){ 
 		console.log('mraid.createCalendarEvent(...) called with following argument: ');
 		console.log(a);
 		webView.showMessage('mraid.createCalendarEvent(...)'); 
 	};
+
 	this.getCurrentPosition = function(){ return webView.getCurrentPosition(); };
 	this.getDefaultPosition = function(){ return webView.getDefaultPosition(); };
 	this.getMaxSize = function(){ return webView.getScreenSize();};
