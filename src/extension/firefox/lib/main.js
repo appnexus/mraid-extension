@@ -7,7 +7,7 @@ var observer = require('observer-service'),
 	Cc = chrome.Cc,
 	Ci = chrome.Ci;
 
-var mraidUrl = 'http://cdn.adnxs.com/js/mraid.js';
+var mraidUrl = 'ANX_MRAID_URL';
 
 observer.add('http-on-modify-request', function(subject) {
 	subject.QueryInterface(Ci.nsIHttpChannel);

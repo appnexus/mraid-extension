@@ -52,11 +52,15 @@ rm ./dist/firefox/data/content.js
 bundle ./src/extension/firefox/data/content.js ./dist/firefox/data/content.compiled.js
 printf '.'
 
-if [[ -z "$DEBUG" ]]; then
+if [[ -z "$DEBUG" ]]; 
+then
 	# no console.logs allowed in the release build
 	./node_modules/remove-console-logs/remove-console-logs `find ./dist/ -iname '*.js'`
 
+	gsed -i 's/ANX_MRAID_URL/http:\/\/cdn\.adnxs\.com\/js\/mraid\.js/' `find ./dist/ -iname '*.js'`
 	zip -r ./dist/chrome_release.zip ./dist/chrome
+else
+	gsed -i 's/ANX_MRAID_URL/http:\/\/localhost:9000\/mraid\.js/' `find ./dist/ -iname '*.js'`
 fi
 
 printf 'done\n'

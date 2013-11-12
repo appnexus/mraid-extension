@@ -1,5 +1,5 @@
 /* global chrome:true */
-var mraidUrl = 'http://cdn.adnxs.com/js/mraid.js';
+var mraidUrl = 'ANX_MRAID_URL';
 
 chrome.webRequest.onBeforeRequest.addListener(
 	_beforeRequest,
