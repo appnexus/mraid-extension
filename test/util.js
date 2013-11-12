@@ -60,7 +60,7 @@ exports.get$Ad = function(){
 };
 exports.unloadAd = function(){
 	$('#anx-mraid-ad-cntr').empty();
-}
+};
 
 exports.expectAdSize = function(w, h){
 	var $ad = this.get$Ad();
@@ -68,4 +68,4 @@ exports.expectAdSize = function(w, h){
 	expect($ad).to.be.ok;
 	expect($ad.width()).to.be.equal(w);
 	expect($ad.height()).to.be.equal(h);
-}
+};

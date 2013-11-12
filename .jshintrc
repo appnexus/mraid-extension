@@ -1,0 +1,11 @@
+{
+	"expr": true,
+	"esnext": true,
+	"node" : true,
+    "browser" : true,	
+	"globals": {
+		"console": false,
+		"describe": false,
+		"it": false
+	}
+}
