@@ -128,8 +128,14 @@ var WebView = function(options){
 			dimensions = sizeFromUrl[0].split(/[^\d]/);
 			return { width: +dimensions[0], height: +dimensions[1], from: 'url' };
 		}
-		
-		return null;
+
+		let widthMatch = search.match(/\bwidth=(\d{2,4})\b/i);
+		if (!widthMatch || widthMatch.length < 2) return null;
+
+		let heightMatch = search.match(/\bheight=(\d{2,4})\b/i);
+		if (!heightMatch || heightMatch.length < 2) return null;
+
+		return { width: +widthMatch[1], height: +heightMatch[1], from: 'url' };
 	}
 
 	function ensureInitialSizeIsSet(size){
