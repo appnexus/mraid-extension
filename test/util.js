@@ -2,6 +2,7 @@ var $ = require('jquery-browserify');
 var expect = require('chai').expect;
 
 function _loadAd(options, done){
+	console.log('loading ad');
 	options.state = options.state || 'default';
 	var w = options.width;
 	var h = options.height;
@@ -48,17 +49,17 @@ function _loadAd(options, done){
 		done();
 	};
 
-	$('#ad-cntr').html($ad);
+	$('#anx-mraid-ad-cntr').html($ad);
 	$ad[0].appendChild( script );
 }
 
 
 exports.loadAd = _loadAd;
 exports.get$Ad = function(){
-	return $('#ad-cntr').first();
+	return $('#anx-mraid-ad-cntr').first();
 };
 exports.unloadAd = function(){
-	$('#ad-cntr').empty();
+	$('#anx-mraid-ad-cntr').empty();
 }
 
 exports.expectAdSize = function(w, h){

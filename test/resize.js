@@ -30,7 +30,13 @@ describe('#resize()', function(){
 		util.expectAdSize(150, 200);
 	});
 	it('should show the close button', function(){
+		mraid.setResizeProperties({
+			width:150,
+			height:175
+		});
+
 		mraid.resize();
+
 
 		var $closeBtn = $('.anx-mraid-close');
 		expect($closeBtn).to.be.visible;
