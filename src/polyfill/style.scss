@@ -22,7 +22,7 @@ body.anx-mraid-webview{
 		position: absolute;
 		top: 0;
 		right: 0;
-		z-index: 300;
+		z-index: 3000;
 		-webkit-border-radius: 999px;
 		-moz-border-radius: 999px;
 		border-radius: 999px;
@@ -46,7 +46,7 @@ body.anx-mraid-webview{
 		background-color: black;
 		color:#c46e07;
 		text-align: center;
-		z-index:200;
+		z-index:2000;
 		outline: 1px solid #eee;
 		font-weight: bold;
 		text-shadow: 0px 2px 3px black;
