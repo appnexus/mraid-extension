@@ -3,7 +3,9 @@ var observer = require('observer-service'),
 	pageMod = require('sdk/page-mod'),
 	ss = require('sdk/simple-storage'),
 	thisExtension = require('self'),
-	{Cc, Ci} = require('chrome');
+	chrome = require('chrome'),
+	Cc = chrome.Cc,
+	Ci = chrome.Ci;
 
 var mraidUrl = 'http://cdn.adnxs.com/js/mraid.js';
 
