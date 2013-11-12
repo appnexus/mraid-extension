@@ -54,7 +54,7 @@ printf '.'
 
 if [[ -z "$DEBUG" ]]; then
 	# no console.logs allowed in the release build
-	sed -E -i '' 's/console\.log\((.*)\);//g' `find ./dist -iname '*.js'`
+	./node_modules/remove-console-logs/remove-console-logs `find ./dist/ -iname '*.js'`
 
 	zip -r ./dist/chrome_release.zip ./dist/chrome
 fi

@@ -137,9 +137,9 @@ function Mraid(options){
 		webView.triggerReady();
 		stateManager.set('default');
 
-		console.log('anx-mraid: before mraid.ready');
+		console.log('before mraid.ready');
 		self.emit('ready');
-		console.log('anx-mraid: after mraid.ready');
+		console.log('after mraid.ready');
 	};
 
 	function init(){

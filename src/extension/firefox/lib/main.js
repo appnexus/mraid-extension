@@ -15,6 +15,7 @@ observer.add('http-on-modify-request', function(subject) {
 	var url = subject.URI.spec;
 	if (typeof url !== 'string' || !/mraid\.js($|\?)/.test(url) || url === mraidUrl) return;
 	
+	console.log('redirecting to "' + mraidUrl + '".');
 	var ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);  
 	var uri = ios.newURI(mraidUrl, null, null); 
 
