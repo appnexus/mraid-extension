@@ -31,6 +31,7 @@ describe('mraid for browsers', function(){
 			'removeEventListener',
 			'resize',
 			'setExpandProperties',
+			'setOrientationProperties',
 			'setResizeProperties',
 			'storePicture',
 			'supports',

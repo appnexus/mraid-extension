@@ -91,6 +91,7 @@ function Mraid(options){
 	this.getPlacementType = function(){ return placementType; };
 	this.getExpandProperties = function(){ return expandProperties; };
 	this.getResizeProperties = function(){ return resizeProperties; };
+	this.setOrientationProperties = function(){};
 
 	this.setExpandProperties = function(p){ 
 		expandProperties = p; 
