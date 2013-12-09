@@ -150,9 +150,11 @@ function Mraid(options){
 
 		stateManager.set('default');
 
-
 		console.log('ready!');
 		self.emit('ready');
+
+		// let anyone who cares know that we have loaded an MRAID creative
+		window.top.postMessage({ name:'mraid-proclaimation' }, '*');
 	};
 
 	function init(){
