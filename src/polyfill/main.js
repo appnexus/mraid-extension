@@ -11,7 +11,7 @@ if (!window.mocha){
 	if (window.document.readyState === 'complete'){
 		window.mraid.triggerReady();
 	} else {
-		$(window).load(function(){
+		$(function(){
 			window.mraid.triggerReady();
 		});
 	}
