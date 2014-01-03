@@ -1,6 +1,6 @@
 var Mraid = require('./mraid'),
 	options = require('./options'),
-	$ = require('jquery-browserify');
+	$ = require('./private-jquery');
 
 window.mraid = new Mraid({
 	placementType: 'inline',

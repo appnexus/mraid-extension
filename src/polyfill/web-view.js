@@ -1,7 +1,7 @@
 var videoJs = require('videojs'),
 	util = require('util'),
 	url = require('url'),
-	$ = require('jquery-browserify'),
+	$ = require('./private-jquery'),
 	{EventEmitter} = require('events'),
 	getFrameElement = require('../frame-to-element');
 
