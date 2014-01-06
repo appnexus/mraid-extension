@@ -67,7 +67,7 @@ function Mraid(options){
 				
 				if (size.width != rp.width || size.height != rp.height){
 					webView.setSize(rp.width || 100, rp.height || 100);
-					this.emit('sizeChange');
+					this.emit('sizeChange', +rp.width, +rp.height);
 				}
 
 				stateManager.set('resized');
