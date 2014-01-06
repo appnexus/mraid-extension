@@ -62,7 +62,14 @@ function Mraid(options){
 			case 'default':
 			case 'resized':
 				webView.showClose();
-				webView.setSize(rp.width || 100, rp.height || 100);
+
+				var size = webView.getSize();
+				
+				if (size.width != rp.width || size.height != rp.height){
+					webView.setSize(rp.width || 100, rp.height || 100);
+					this.emit('sizeChange');
+				}
+
 				stateManager.set('resized');
 			break;
 		}

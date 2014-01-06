@@ -164,7 +164,7 @@ var WebView = function(options){
 
 	this.getInitialSize = function() { return ensureInitialSizeIsSet(); };
 	this.getScreenSize = function() { return screenSize; };
-	this.getCurrentPosition = function() {
+	this.getCurrentPosition = this.getSize = function() {
 		if (!$webView) return {x: 0, y: 0};
 
 		return {

@@ -42,6 +42,24 @@ describe('#resize()', function(){
 		expect($closeBtn).to.be.visible;
 	});
 
+	it('should fire sizeChange event everytime resize is called and the size really is different', function(){
+		mraid.setResizeProperties({
+			width:154,
+			height:172
+		});
+
+		var stateCallback = sinon.spy();
+		var errorCallback = sinon.spy();
+
+		mraid.addEventListener('error', errorCallback);
+		mraid.addEventListener('sizeChange', stateCallback);
+		mraid.resize();
+		mraid.resize();
+		mraid.resize();
+
+		expect(stateCallback).to.have.been.calledOnce;
+		expect(errorCallback).to.have.not.been.called;
+	});
 
 	describe('resizing smaller', function(){
 		beforeEach(function(done){
