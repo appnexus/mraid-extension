@@ -161,7 +161,7 @@ function Mraid(options){
 		self.emit('ready');
 
 		// let anyone who cares know that we have loaded an MRAID creative
-		window.top.postMessage({ name:'mraid-proclaimation' }, '*');
+		window.top.postMessage({ name:'mraid-proclamation' }, '*');
 	};
 
 	function init(){
