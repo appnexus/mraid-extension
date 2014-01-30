@@ -2,6 +2,8 @@ var Mraid = require('./mraid'),
 	options = require('./options'),
 	$ = require('./private-jquery');
 
+if (window.mraid) return;
+
 window.mraid = new Mraid({
 	placementType: 'inline',
 	screen: options.getScreenSize()
