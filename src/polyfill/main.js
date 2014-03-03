@@ -2,7 +2,13 @@ var Mraid = require('./mraid'),
 	options = require('./options'),
 	$ = require('./private-jquery');
 
-if (window.mraid) return;
+if (window.mraid){
+	if (typeof window.mraid.enable === 'functon'){
+		window.mraid.enable();
+	}
+
+	return;
+}
 
 window.mraid = new Mraid({
 	placementType: 'inline',

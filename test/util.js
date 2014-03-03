@@ -21,6 +21,8 @@ function _loadAd(options, done){
 	_setImgSrc(w, h);
 	$ad.append($img);
 
+	delete window.mraid;
+
 	var script = document.createElement( 'script' );
 	script.src = 'mraid.js';
 	script.onload = function(){

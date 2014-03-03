@@ -129,9 +129,10 @@ describe('#getState', function(){
 				state: 'resized',
 				width: 320,
 				height: 50
-			}, done);
-
-			mraid.setResizeProperties({});
+			}, function(){
+				mraid.setResizeProperties({});
+				done();
+			});
 		});
 
 		it('should change state when expand() is called', function(){
