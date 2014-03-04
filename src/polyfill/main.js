@@ -3,7 +3,7 @@ var Mraid = require('./mraid'),
 	$ = require('./private-jquery');
 
 if (window.mraid){
-	if (typeof window.mraid.enable === 'functon'){
+	if (typeof window.mraid.enable === 'function'){
 		window.mraid.enable();
 	}
 
