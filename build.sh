@@ -2,7 +2,7 @@
 
 function bundle {
 	node ./node_modules/browserify/bin/cmd.js -t sassify2 -t es6ify $1 |
-	( [[ "$DEBUG" ]] && cat || ./node_modules/uglify-js/bin/uglifyjs  ) |
+	( [[ "$DEBUG" ]] && cat || ./node_modules/uglify-js/bin/uglifyjs -m -c ) |
 	cat > $2
 }
 
@@ -27,10 +27,12 @@ fi
 
 printf 'building'
 
+printf 'test bundle\n\n';
 # the test bundle
 bundle ./test/main.js ./public/mocha/tests.js
 printf '.'
 
+printf 'mraid bundle\n\n';
 # the mraid.js polyfill
 mkdir -p ./dist
 bundle ./src/polyfill/main.js ./dist/mraid.js
@@ -41,6 +43,7 @@ mkdir -p ./dist/chrome
 cp -R ./src/extension/chrome ./dist/
 cp ./src/extension/icon128.png ./dist/chrome/
 rm ./dist/chrome/content.js
+printf 'chrome bundle\n\n'
 bundle ./src/extension/chrome/content.js ./dist/chrome/content.compiled.js
 printf '.'
 
@@ -49,6 +52,7 @@ mkdir -p ./dist/firefox
 cp -R ./src/extension/firefox ./dist/
 cp ./src/extension/icon128.png ./dist/firefox/data
 rm ./dist/firefox/data/content.js
+printf 'ff bundle\n\n'
 bundle ./src/extension/firefox/data/content.js ./dist/firefox/data/content.compiled.js
 printf '.'
 

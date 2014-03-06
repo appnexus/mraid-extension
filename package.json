@@ -11,17 +11,20 @@
   "dependencies": {
     "express": "~3.4.0",
     "browserify": "~2.34.1",
-    "jquery-browserify": "~1.8.1",
     "sassify2": "0.0.2",
     "cssify2": "0.0.4",
-    "videojs": "0.0.2"
+    "jquery": "~2.1.0",
+    "video.js": "~4.4.2",
+    "browser-unpack": "~0.1.0",
+    "intreq": "0.0.0",
+    "browser-pack": "~2.0.1"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
     "chai": "~1.8.1",
     "sinon": "~1.7.3",
     "sinon-chai": "~2.4.0",
-    "chai-jquery": "~1.1.2",
+    "chai-jquery": "~1.2.1",
     "uglify-js": "~2.4.1",
     "nodemon": "~0.7.10",
     "es6ify": "~0.4.3",

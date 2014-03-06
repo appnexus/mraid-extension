@@ -1,5 +1,8 @@
-var $ = require('jquery-browserify');
+var $ = require('jquery');
 var expect = require('chai').expect;
+
+// chai-jquery doesn't work unless i do this
+window.$ = window.jQuery = $;
 
 function _loadAd(options, done){
 	console.log('loading ad');

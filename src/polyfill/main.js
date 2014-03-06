@@ -1,3 +1,5 @@
+var Mraid, options, $;
+
 if (window.mraid){
 	if (typeof window.mraid.enable === 'function'){
 		window.mraid.enable();
@@ -6,9 +8,9 @@ if (window.mraid){
 	return;
 }
 
-var Mraid = require('./mraid'),
-	options = require('./options'),
-	$ = require('./private-jquery');
+Mraid = require('./mraid');
+options = require('./options');
+$ = require('jquery');
 
 window.mraid = new Mraid({
 	placementType: 'inline',

@@ -1,7 +1,7 @@
-var videoJs = require('videojs'),
+var videoJs = require('video.js'),
 	util = require('util'),
 	url = require('url'),
-	$ = require('./private-jquery'),
+	$ = require('jquery'),
 	{EventEmitter} = require('events'),
 	getFrameElement = require('../frame-to-element');
 
@@ -249,9 +249,10 @@ var WebView = function(options){
 
 		videoJs(videoId, videoOptions, function(){
 			this.on('loadedmetadata', function(){
-				self.setSize(this.tech.width(), this.tech.height());
+				// todo: seems weird... need to handle resize or something
+				self.setSize(this.width(), this.height());
 
-				$(this.tag)
+				$video
 					.parent()
 					.append($closeBtn);
 			});

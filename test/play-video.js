@@ -1,7 +1,7 @@
 var sinon = require('sinon');
 var expect = require('./chai-expect');
 var util = require('./util');
-var videojs = require('videojs');
+var videojs = require('video.js');
 
 describe('#playVideo', function(){
 	afterEach(function(){
@@ -12,7 +12,7 @@ describe('#playVideo', function(){
 		});
 	});
 
-	it('should show the video', function(){
+	it('should show the video when not expanded', function(){
 		var $ad = util.get$Ad();
 
 		mraid.playVideo('http://video-js.zencoder.com/oceans-clip.mp4');
