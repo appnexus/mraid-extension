@@ -23,14 +23,20 @@ function Mraid(options){
 
 	expandProperties.useCustomClose = false;
 
-	this.open = function(url){ 
+	/**
+	 * Cache the default window.open function because some MRAID modules overwrite
+	 * window.open. This works because mraid.js is expected to be called first.
+	 */
+	var defaultWindowOpen = window.open;
 
-		if (/^(tel|sms):/){
+	this.open = function(url){
+
+		if (/^(tel|sms):/.test(url)){
 			webView.showMessage(url);
 			return;
 		}
 
-		window.open(url); 
+		defaultWindowOpen(url, '_blank');
 	};
 
 	this.close = function(){
